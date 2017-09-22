@@ -8,12 +8,12 @@ async function main() {
 }
 
 interface Input {
-    rows: number
-    data: string[][]
+    rows: number;
+    data: string[][];
 }
 
 function readInput(): Promise<Input> {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         let reader = readline.createInterface(process.stdin);
         let firstLine = true;
 
