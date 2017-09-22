@@ -3,7 +3,10 @@
     "module": "commonjs",
     "target": "ES2017",
     "sourceMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true
   },
   "exclude": [
     "node_modules"
