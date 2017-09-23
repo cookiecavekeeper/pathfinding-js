@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/node": "^8.0.29"
+  },
+  "dependencies": {
+    "chalk": "^2.1.0"
   }
 }

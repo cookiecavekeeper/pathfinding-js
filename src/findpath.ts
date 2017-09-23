@@ -1,4 +1,5 @@
 import * as readline from 'readline';
+import * as chalk from 'chalk';
 import {Field, FieldType} from './Field';
 
 main();
@@ -12,10 +13,14 @@ async function main() {
     const startField = getFirstFieldForFieldType('S', map);
     const endField = getFirstFieldForFieldType('E', map);
 
-    let path = findPath(startField, endField, map);
+    try {
+        let path = findPath(startField, endField, map);
 
-    console.log(visualizePath(path, map));
-    console.log(`Steps: ${path.length - 1}`);
+        console.log(visualizePath(path, map));
+        console.log(`Steps: ${path.length - 1}`);
+    } catch (error) {
+        console.error(error.message);
+    }
 }
 
 type PlayingField = Field[][];
@@ -145,9 +150,18 @@ function visualizePath(path: Field[], map: PlayingField) {
             row
                 .map(field => {
                     if (field.type === '.' && path.includes(field)) {
-                        return '#';
+                        return chalk.green('#');
                     } else {
-                        return field.type;
+                        switch (field.type) {
+                            case 'S':
+                            case 'E':
+                                return chalk.red(field.type);
+                            case '.':
+                                return chalk.yellow(field.type);
+                            case 'W':
+                            default:
+                                return chalk.white(field.type);
+                        }
                     }
                 })
                 .join('')
