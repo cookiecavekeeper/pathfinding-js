@@ -114,18 +114,8 @@ function findPath(startField: Field, endField: Field, map: PlayingField): Field[
         if (currentField.equals(endField)) {
             console.log('The end!!!');
 
-            let path = [];
-            let tracebackField = endField;
-            path.push(endField);
-
-            while (tracebackField !== startField) {
-                tracebackField = nodeParents.get(tracebackField);
-                path.push(tracebackField);
-            }
-
-            path = path.reverse();
-
-            return path; // we did it reddit
+            // we did it reddit
+            return constructPathFromParentMap(endField, startField, nodeParents);
         }
 
         let possibleFields = getPossibleFields(currentField, map);
@@ -142,6 +132,19 @@ function findPath(startField: Field, endField: Field, map: PlayingField): Field[
     }
 
     throw new Error('No Path found!!');
+}
+
+function constructPathFromParentMap(endField: Field, startField: Field, nodeParents: Map<Field, Field>): Field[] {
+    let path = [];
+    let tracebackField = endField;
+    path.push(endField);
+
+    while (tracebackField !== startField) {
+        tracebackField = nodeParents.get(tracebackField);
+        path.push(tracebackField);
+    }
+
+    return path.reverse();
 }
 
 function visualizePath(path: Field[], map: PlayingField) {
