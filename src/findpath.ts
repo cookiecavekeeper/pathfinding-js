@@ -7,9 +7,15 @@ async function main() {
     console.log(input);
 }
 
+type Field = 'S' | '.' | 'W' | 'E';
+
+function isField(field: string): field is Field {
+    return ['S', '.', 'W', 'E'].some(k => k === field);
+}
+
 interface Input {
     rows: number;
-    data: string[][];
+    data: Field[][];
 }
 
 function readInput(): Promise<Input> {
@@ -19,14 +25,14 @@ function readInput(): Promise<Input> {
 
         let rows: number;
 
-        let data: string[][] = [];
+        let data: Field[][] = [];
 
         reader.on('line', (line: string) => {
             if (firstLine) {
                 rows = +line;
                 firstLine = false;
             } else {
-                data.push(line.split(''));
+                data.push(line.split('').filter(isField));
             }
         });
 
